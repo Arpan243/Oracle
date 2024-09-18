@@ -1,25 +1,22 @@
 def minlen(arr, mxval):
     n = len(arr)
     ans = [-1] * n  
-    freq = {}       # To count frequencies of elements in the current window
+    freq = {}
 
     left = 0
     distinct_count = 0
 
     for right in range(n):
-        # Add the new element to the dictionary
         if arr[right] not in freq:
             freq[arr[right]] = 0
         if freq[arr[right]] == 0:
             distinct_count += 1
         freq[arr[right]] += 1
 
-        # Shrink the window from the left if there are more than mxval distinct elements
         while distinct_count >= mxval:
             if distinct_count == mxval:
                 ans[left] = right - left + 1
 
-            # Remove the element at left from the dictionary
             freq[arr[left]] -= 1
             if freq[arr[left]] == 0:
                 distinct_count -= 1
